@@ -39,17 +39,10 @@ class MoviesFragment: Fragment() {
 
     private val viewModel by viewModel<MoviesViewModel>()
 
-    private val adapter = MoviesAdapter {
+    private val adapter = MoviesAdapter { movie ->
         if (clickDebounce()) {
-            parentFragmentManager.commit {
-                findNavController().navigateUp()
-                replace(
-                    R.id.fragment_container,
-                    DetailsFragment.newInstance(it.image, it.id),
-                    DetailsFragment.TAG
-                )
-                addToBackStack(DetailsFragment.TAG)
-            }
+            findNavController().navigate(R.id.action_moviesFragment_to_detailsFragment,
+                DetailsFragment.createArgs(movie.id, movie.image))
         }
     }
 
@@ -108,6 +101,7 @@ class MoviesFragment: Fragment() {
     }
 
     override fun onDestroy() {
+        _binding = null
         super.onDestroy()
         textWatcher?.let { queryInput.removeTextChangedListener(it) }
     }

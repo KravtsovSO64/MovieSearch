@@ -4,12 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.yandex.practicum.moviessearch.R
 import ru.yandex.practicum.moviessearch.databinding.FragmentDetailsBinding
 
 class DetailsFragment: Fragment() {
+
+    companion object {
+        private const val ARGS_POSTER_URL = "poster_url"
+        private const val ARGS_MOVIE_ID = "movie_id"
+
+        fun createArgs(movieId: String, posterUrl: String): Bundle =
+            bundleOf(ARGS_MOVIE_ID to movieId,
+                ARGS_POSTER_URL to posterUrl)
+
+    }
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
@@ -46,20 +57,4 @@ class DetailsFragment: Fragment() {
         super.onDestroyView()
     }
 
-    companion object {
-        private const val ARGS_POSTER_URL = "poster"
-        private const val ARGS_MOVIE_ID = "id"
-
-        const val TAG = "DetailsFragment"
-
-        fun newInstance(poster: String, id: String): DetailsFragment {
-            val fragment = DetailsFragment()
-            val args = Bundle().apply {
-                putString(ARGS_POSTER_URL, poster)
-                putString(ARGS_MOVIE_ID, id)
-            }
-            fragment.arguments = args
-            return  fragment
-        }
-    }
 }
