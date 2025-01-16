@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.yandex.practicum.moviessearch.R
 import ru.yandex.practicum.moviessearch.domain.models.Movie
 
@@ -20,6 +21,7 @@ class MovieViewHolder(parent: ViewGroup) :
     fun bind(movie: Movie) {
         Glide.with(itemView)
             .load(movie.image)
+            .transform(RoundedCorners(32))
             .into(cover)
 
         title.text = movie.title

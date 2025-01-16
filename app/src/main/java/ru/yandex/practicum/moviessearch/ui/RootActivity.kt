@@ -1,9 +1,14 @@
 package ru.yandex.practicum.moviessearch.ui
 
-import android.graphics.Color
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.NavHostFragment
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.updatePadding
 import ru.yandex.practicum.moviessearch.R
 import ru.yandex.practicum.moviessearch.databinding.ActivityRootBinding
 
@@ -17,11 +22,7 @@ class RootActivity: AppCompatActivity() {
 
         binding = ActivityRootBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
-        val navControl = navHostFragment.navController
-
-        window.navigationBarColor = Color.BLUE
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.gray_fon)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.dark)
     }
 }
