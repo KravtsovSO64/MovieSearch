@@ -7,6 +7,7 @@ import ru.yandex.practicum.moviessearch.data.NetworkClient
 import ru.yandex.practicum.moviessearch.data.dto.MovieCastRequest
 import ru.yandex.practicum.moviessearch.data.dto.MovieDetailsRequest
 import ru.yandex.practicum.moviessearch.data.dto.MoviesSearchRequest
+import ru.yandex.practicum.moviessearch.data.dto.NameSearchRequest
 import ru.yandex.practicum.moviessearch.data.dto.Response
 
 class RetrofitNetworkClient(
@@ -15,11 +16,11 @@ class RetrofitNetworkClient(
 ) : NetworkClient {
 
     override fun doRequest(dto: Any): Response {
-        if (isConnected() == false) {
+        if (!isConnected()) {
             return Response().apply { resultCode = -1 }
         }
         // Добавили ещё одну проверку
-        if ((dto !is MoviesSearchRequest) && (dto !is MovieDetailsRequest) && (dto !is MovieCastRequest)) {
+        if ((dto !is MoviesSearchRequest) && (dto !is MovieDetailsRequest) && (dto !is MovieCastRequest) && (dto !is NameSearchRequest)) {
             return Response().apply { resultCode = 400 }
         }
 
@@ -27,6 +28,7 @@ class RetrofitNetworkClient(
         val response = when (dto) {
             is MoviesSearchRequest -> imdbService.searchMovies(dto.expression).execute()
             is MovieDetailsRequest -> imdbService.getMovieDetails(dto.movieId).execute()
+            is NameSearchRequest -> imdbService.searchName(dto.expression).execute()
             else -> imdbService.getFullCast((dto as MovieCastRequest).movieId).execute()
         }
         val body = response.body()

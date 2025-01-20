@@ -14,4 +14,7 @@ sealed interface MoviesCastRVItem : RVItem {
         val data: MovieCastPerson,
     ) : MoviesCastRVItem
 
+    data class TrailerItem(
+        val data: String,
+    ) : MoviesCastRVItem
 }
