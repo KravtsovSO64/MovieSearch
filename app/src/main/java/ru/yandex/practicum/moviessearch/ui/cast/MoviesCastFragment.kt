@@ -56,6 +56,8 @@ class MoviesCastFragment : Fragment() {
                 is MoviesCastState.Loading -> showLoading()
             }
         }
+
+
     }
 
     private fun showLoading() {

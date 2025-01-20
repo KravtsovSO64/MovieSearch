@@ -6,6 +6,7 @@ import retrofit2.http.Path
 import ru.yandex.practicum.moviessearch.data.dto.MovieCastResponse
 import ru.yandex.practicum.moviessearch.data.dto.MovieDetailsResponse
 import ru.yandex.practicum.moviessearch.data.dto.MoviesSearchResponse
+import ru.yandex.practicum.moviessearch.data.dto.NameSearchResponse
 
 interface IMDbApiService {
 
@@ -17,4 +18,8 @@ interface IMDbApiService {
 
     @GET("/en/API/FullCast/k_zcuw1ytf/{movie_id}")
     fun getFullCast(@Path("movie_id") movieId: String): Call<MovieCastResponse>
+
+    @GET("en/API/SearchName/k_zcuw1ytf/{expression}")
+    fun searchName(@Path("expression") expression: String): Call<NameSearchResponse>
+
 }
