@@ -7,10 +7,13 @@ import ru.yandex.practicum.moviessearch.data.dto.MovieDetailsRequest
 import ru.yandex.practicum.moviessearch.data.dto.MovieDetailsResponse
 import ru.yandex.practicum.moviessearch.data.dto.MoviesSearchRequest
 import ru.yandex.practicum.moviessearch.data.dto.MoviesSearchResponse
+import ru.yandex.practicum.moviessearch.data.dto.TrailerRequest
+import ru.yandex.practicum.moviessearch.data.dto.TrailerResponse
 import ru.yandex.practicum.moviessearch.domain.api.MoviesRepository
 import ru.yandex.practicum.moviessearch.domain.models.Movie
 import ru.yandex.practicum.moviessearch.domain.models.MovieCast
 import ru.yandex.practicum.moviessearch.domain.models.MovieDetails
+import ru.yandex.practicum.moviessearch.domain.models.Trailer
 import ru.yandex.practicum.moviessearch.util.Resource
 
 class MoviesRepositoryImpl(
@@ -70,6 +73,27 @@ class MoviesRepositoryImpl(
                 Resource.Success(
                     data = movieCastConverter.convert(response as MovieCastResponse)
                 )
+            }
+            else -> {
+                Resource.Error("Ошибка сервера")
+
+            }
+        }
+    }
+
+    override fun getTrailer(movieId: String): Resource<Trailer> {
+        val response = networkClient.doRequest(TrailerRequest(movieId))
+        return when (response.resultCode) {
+            -1 -> {
+                Resource.Error("Проверьте подключение к интернету")
+            }
+            200 -> {
+                with(response as TrailerResponse) {
+                    Resource.Success(
+                        Trailer(errorMessage, fullTitle, imDbId, link, linkEmbed, thumbnailUrl, title, type, uploadDate,videoDescription,videoId, videoTitle, year
+                        )
+                    )
+                }
             }
             else -> {
                 Resource.Error("Ошибка сервера")

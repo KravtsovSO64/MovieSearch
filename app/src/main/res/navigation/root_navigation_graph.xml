@@ -18,6 +18,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_moviesFragment_to_trailerFragment"
+            app:destination="@id/trailerFragment" />
 
     </fragment>
 
@@ -50,5 +53,9 @@
         android:name="ru.yandex.practicum.moviessearch.ui.names.NamesFragment"
         android:label="fragment_names"
         tools:layout="@layout/fragment_names" />
+    <fragment
+        android:id="@+id/trailerFragment"
+        android:name="ru.yandex.practicum.moviessearch.ui.trailers.TrailerFragment"
+        android:label="TrailerFragment" />
 
 </navigation>

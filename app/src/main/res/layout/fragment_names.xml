@@ -1,23 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white"
-    tools:context="ru.yandex.practicum.moviessearch.ui.names.NamesFragment">
+    android:background="@color/gray_fon"
+    android:fitsSystemWindows="true"
+    tools:context="ru.yandex.practicum.moviessearch.ui.movies.MoviesFragment">
 
-    <EditText android:id="@+id/queryInput"
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_gravity="center_vertical"
-        android:textColor="@color/black"
-        android:imeOptions="actionDone"
-        android:singleLine="true"/>
+        android:background="#37474F"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+        <EditText
+            android:id="@+id/queryInput"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_margin="16dp"
+            android:paddingStart="16dp"
+            android:drawablePadding="16dp"
+            android:alpha="0.5"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:backgroundTint="@color/dark"
+            android:textColorHint="#F9FBE7"
+            android:textColor="#F9FBE7"
+            android:textCursorDrawable="@color/gray_fon"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawableRight="@drawable/ic_filter"
+            android:hint="Найди своего кумира"
+            app:layout_scrollFlags="scroll|enterAlways" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#FFECB3"
+            app:layout_scrollFlags="scroll|enterAlways"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <ProgressBar android:id="@+id/progressBar"
             android:layout_width="44dp"
@@ -29,7 +59,8 @@
         <androidx.recyclerview.widget.RecyclerView android:id="@+id/personsList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/list_item_person"/>
+            tools:listitem="@layout/list_item_person"
+            android:scrollbars="vertical"/>
 
         <TextView android:id="@+id/placeholderMessage"
             android:layout_width="300dp"
@@ -40,4 +71,4 @@
             android:textStyle="bold"
             android:textColor="@color/black"/>
     </FrameLayout>
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -8,6 +8,7 @@ import ru.yandex.practicum.moviessearch.presentation.details.AboutViewModel
 import ru.yandex.practicum.moviessearch.presentation.details.PosterViewModel
 import ru.yandex.practicum.moviessearch.presentation.movies.MoviesViewModel
 import ru.yandex.practicum.moviessearch.presentation.names.NamesViewModel
+import ru.yandex.practicum.moviessearch.presentation.trailers.TrailersViewModel
 
 val viewModelModule = module {
 
@@ -17,6 +18,10 @@ val viewModelModule = module {
 
     viewModel {(movieId: String) ->
         AboutViewModel(movieId, get())
+    }
+
+    viewModel {
+        TrailersViewModel(get())
     }
 
     viewModel {(posterUrl: String) ->
