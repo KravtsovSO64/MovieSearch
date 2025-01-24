@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,22 +14,19 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.navigateUp
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.yandex.practicum.moviessearch.R
 import ru.yandex.practicum.moviessearch.databinding.FragmentMoviesBinding
-
 import ru.yandex.practicum.moviessearch.domain.models.Movie
 import ru.yandex.practicum.moviessearch.presentation.movies.MoviesState
 import ru.yandex.practicum.moviessearch.presentation.movies.MoviesViewModel
 import ru.yandex.practicum.moviessearch.ui.details.DetailsFragment
+import ru.yandex.practicum.moviessearch.ui.trailers.TrailerFragment
 
-class MoviesFragment: Fragment() {
+class MoviesFragment: Fragment(), MoviesAdapter.MovieClickListener, MoviesAdapter.TrailerClickListener{
 
     companion object {
         private const val CLICK_DEBOUNCE_DELAY = 1000L
@@ -39,13 +37,7 @@ class MoviesFragment: Fragment() {
 
     private val viewModel by viewModel<MoviesViewModel>()
 
-    private val adapter = MoviesAdapter { movie ->
-        if (clickDebounce()) {
-            findNavController().navigate(R.id.action_moviesFragment_to_detailsFragment,
-                DetailsFragment.createArgs(movie.id, movie.image))
-        }
-    }
-
+    private val adapter = MoviesAdapter(this, this)
     private lateinit var queryInput: EditText
     private lateinit var placeholderMessage: TextView
     private lateinit var moviesList: RecyclerView
@@ -154,5 +146,20 @@ class MoviesFragment: Fragment() {
             handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
         }
         return current
+    }
+
+    override fun onMovieClick(movie: Movie) {
+        if (clickDebounce()) {
+            findNavController().navigate(R.id.action_moviesFragment_to_detailsFragment,
+                DetailsFragment.createArgs(movie.id, movie.image))
+        }
+    }
+
+    override fun onTrailerClick(movieId: String) {
+        Log.e("MidMovie","$movieId")
+        if (clickDebounce()) {
+            findNavController().navigate(R.id.action_moviesFragment_to_trailerFragment,
+                TrailerFragment.createArgs(movieId))
+        }
     }
 }

@@ -27,6 +27,9 @@ class RootActivity : AppCompatActivity() {
         binding = ActivityRootBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.dark)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.dark)
+
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.rootFragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
 

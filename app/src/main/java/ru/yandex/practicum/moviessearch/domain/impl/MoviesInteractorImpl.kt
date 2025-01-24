@@ -36,4 +36,13 @@ class MoviesInteractorImpl(private val repository: MoviesRepository) : MoviesInt
         }
     }
 
+    override fun getTrailer(movieId: String, consumer: MoviesInteractor.TrailerConsumer) {
+        executor.execute {
+            when(val resource = repository.getTrailer(movieId)) {
+                is Resource.Success -> { consumer.consume(resource.data, null) }
+                is Resource.Error -> { consumer.consume(resource.data, resource.message) }
+            }
+        }
+    }
+
 }

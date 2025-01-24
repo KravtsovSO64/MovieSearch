@@ -9,6 +9,7 @@ import ru.yandex.practicum.moviessearch.data.dto.MovieDetailsRequest
 import ru.yandex.practicum.moviessearch.data.dto.MoviesSearchRequest
 import ru.yandex.practicum.moviessearch.data.dto.NameSearchRequest
 import ru.yandex.practicum.moviessearch.data.dto.Response
+import ru.yandex.practicum.moviessearch.data.dto.TrailerRequest
 
 class RetrofitNetworkClient(
     private val imdbService: IMDbApiService,
@@ -20,7 +21,7 @@ class RetrofitNetworkClient(
             return Response().apply { resultCode = -1 }
         }
         // Добавили ещё одну проверку
-        if ((dto !is MoviesSearchRequest) && (dto !is MovieDetailsRequest) && (dto !is MovieCastRequest) && (dto !is NameSearchRequest)) {
+        if ((dto !is MoviesSearchRequest) && (dto !is MovieDetailsRequest) && (dto !is MovieCastRequest) && (dto !is NameSearchRequest) && (dto !is TrailerRequest)) {
             return Response().apply { resultCode = 400 }
         }
 
@@ -29,6 +30,7 @@ class RetrofitNetworkClient(
             is MoviesSearchRequest -> imdbService.searchMovies(dto.expression).execute()
             is MovieDetailsRequest -> imdbService.getMovieDetails(dto.movieId).execute()
             is NameSearchRequest -> imdbService.searchName(dto.expression).execute()
+            is TrailerRequest -> imdbService.getTrailer(dto.movieId).execute()
             else -> imdbService.getFullCast((dto as MovieCastRequest).movieId).execute()
         }
         val body = response.body()

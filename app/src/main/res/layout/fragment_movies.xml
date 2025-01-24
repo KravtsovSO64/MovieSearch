@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_fon"
+    android:fitsSystemWindows="true"
     tools:context="ru.yandex.practicum.moviessearch.ui.movies.MoviesFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -22,6 +23,7 @@
                 android:layout_margin="16dp"
                 android:paddingStart="16dp"
                 android:drawablePadding="16dp"
+                android:alpha="0.5"
                 android:imeOptions="actionDone"
                 android:singleLine="true"
                 android:backgroundTint="@color/dark"
@@ -35,7 +37,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="0.5dp"
             android:background="#FFECB3"
             app:layout_scrollFlags="scroll|enterAlways"/>
 
@@ -58,7 +60,9 @@
             android:id="@+id/locations"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical"
+            android:clipToPadding="false"/>
+
 
         <TextView
             android:id="@+id/placeholderMessage"
@@ -70,4 +74,5 @@
             android:textStyle="bold"
             android:textColor="@color/black" />
     </FrameLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
