@@ -14,17 +14,22 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.yandex.practicum.moviessearch.R
 import ru.yandex.practicum.moviessearch.databinding.FragmentMoviesBinding
 import ru.yandex.practicum.moviessearch.domain.models.Movie
 import ru.yandex.practicum.moviessearch.presentation.movies.MoviesState
 import ru.yandex.practicum.moviessearch.presentation.movies.MoviesViewModel
+import ru.yandex.practicum.moviessearch.ui.RootActivity
 import ru.yandex.practicum.moviessearch.ui.details.DetailsFragment
 import ru.yandex.practicum.moviessearch.ui.trailers.TrailerFragment
+import ru.yandex.practicum.moviessearch.utils.debounce
 
 class MoviesFragment: Fragment(), MoviesAdapter.MovieClickListener, MoviesAdapter.TrailerClickListener{
 
@@ -37,7 +42,7 @@ class MoviesFragment: Fragment(), MoviesAdapter.MovieClickListener, MoviesAdapte
 
     private val viewModel by viewModel<MoviesViewModel>()
 
-    private val adapter = MoviesAdapter(this, this)
+    private lateinit var adapter: MoviesAdapter
     private lateinit var queryInput: EditText
     private lateinit var placeholderMessage: TextView
     private lateinit var moviesList: RecyclerView
@@ -46,7 +51,7 @@ class MoviesFragment: Fragment(), MoviesAdapter.MovieClickListener, MoviesAdapte
 
     private var isClickAllowed = true
 
-    private val handler = Handler(Looper.getMainLooper())
+   private lateinit var onMovieClickDebounce: (Movie) -> Unit
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,6 +69,12 @@ class MoviesFragment: Fragment(), MoviesAdapter.MovieClickListener, MoviesAdapte
         queryInput = binding.queryInput
         moviesList = binding.locations
         progressBar = binding.progressBar
+
+        adapter = MoviesAdapter(this, this)
+
+        onMovieClickDebounce = debounce<Movie>(CLICK_DEBOUNCE_DELAY, viewLifecycleOwner.lifecycleScope,false ) {movie ->
+            findNavController().navigate(R.id.action_moviesFragment_to_detailsFragment, DetailsFragment.createArgs(movie.id, movie.image))
+        }
 
         moviesList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         moviesList.adapter = adapter
@@ -143,20 +154,21 @@ class MoviesFragment: Fragment(), MoviesAdapter.MovieClickListener, MoviesAdapte
         val current = isClickAllowed
         if (isClickAllowed) {
             isClickAllowed = false
-            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
+            viewLifecycleOwner.lifecycleScope.launch {
+                delay(CLICK_DEBOUNCE_DELAY)
+                isClickAllowed = true
+            }
         }
         return current
     }
 
     override fun onMovieClick(movie: Movie) {
-        if (clickDebounce()) {
-            findNavController().navigate(R.id.action_moviesFragment_to_detailsFragment,
-                DetailsFragment.createArgs(movie.id, movie.image))
-        }
+        (activity as RootActivity).animateBottomNavigationView()
+        onMovieClickDebounce(movie)
     }
 
     override fun onTrailerClick(movieId: String) {
-        Log.e("MidMovie","$movieId")
+        Log.e("MidMovie", movieId)
         if (clickDebounce()) {
             findNavController().navigate(R.id.action_moviesFragment_to_trailerFragment,
                 TrailerFragment.createArgs(movieId))

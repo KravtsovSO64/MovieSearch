@@ -4,7 +4,7 @@ import ru.yandex.practicum.moviessearch.domain.models.Movie
 import ru.yandex.practicum.moviessearch.domain.models.MovieCast
 import ru.yandex.practicum.moviessearch.domain.models.MovieDetails
 import ru.yandex.practicum.moviessearch.domain.models.Trailer
-import ru.yandex.practicum.moviessearch.util.Resource
+import ru.yandex.practicum.moviessearch.utils.Resource
 
 interface MoviesRepository {
     fun searchMovies(expression: String): Resource<List<Movie>>

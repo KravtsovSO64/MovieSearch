@@ -2,7 +2,7 @@ package ru.yandex.practicum.moviessearch.domain.impl
 
 import ru.yandex.practicum.moviessearch.domain.api.MoviesInteractor
 import ru.yandex.practicum.moviessearch.domain.api.MoviesRepository
-import ru.yandex.practicum.moviessearch.util.Resource
+import ru.yandex.practicum.moviessearch.utils.Resource
 import java.util.concurrent.Executors
 
 class MoviesInteractorImpl(private val repository: MoviesRepository) : MoviesInteractor {
