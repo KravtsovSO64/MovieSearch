@@ -4,7 +4,7 @@ import ru.yandex.practicum.moviessearch.data.dto.NameSearchRequest
 import ru.yandex.practicum.moviessearch.data.dto.NameSearchResponse
 import ru.yandex.practicum.moviessearch.domain.api.NamesRepository
 import ru.yandex.practicum.moviessearch.domain.models.Name
-import ru.yandex.practicum.moviessearch.util.Resource
+import ru.yandex.practicum.moviessearch.utils.Resource
 
 class NamesRepositoryImpl(private val networkClient: NetworkClient): NamesRepository {
 

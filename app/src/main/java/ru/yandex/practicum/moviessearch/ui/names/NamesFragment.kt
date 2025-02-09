@@ -92,7 +92,6 @@ class NamesFragment : Fragment() {
             personsList.visibility = View.GONE
             placeholderMessage.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
-
             placeholderMessage.text = errorMessage
         }
     }

@@ -2,7 +2,7 @@ package ru.yandex.practicum.moviessearch.domain.impl
 
 import ru.yandex.practicum.moviessearch.domain.api.NamesIteractor
 import ru.yandex.practicum.moviessearch.domain.api.NamesRepository
-import ru.yandex.practicum.moviessearch.util.Resource
+import ru.yandex.practicum.moviessearch.utils.Resource
 import java.util.concurrent.Executors
 
 class NamesIteractorImpl(private val repository: NamesRepository): NamesIteractor {

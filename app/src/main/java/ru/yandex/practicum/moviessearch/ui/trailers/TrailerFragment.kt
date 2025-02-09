@@ -63,11 +63,11 @@ class TrailerFragment: Fragment() {
 
     private fun showTrailer(trailerUrl: String) {
         binding.errorSearchTrailer.visibility = View.GONE
-        val trailer = binding.webView
-        trailer.visibility = View.VISIBLE
-        trailer.webViewClient = WebViewClient()
-        trailer.settings.javaScriptEnabled = true
-        trailer.loadUrl(trailerUrl)
+        binding.webView.visibility = View.VISIBLE
+        binding.webView.webViewClient = WebViewClient()
+        binding.webView.settings.javaScriptEnabled = true
+        Log.e("webView", trailerUrl)
+        binding.webView.loadUrl(trailerUrl)
     }
 
     private fun showError(message: String) {
