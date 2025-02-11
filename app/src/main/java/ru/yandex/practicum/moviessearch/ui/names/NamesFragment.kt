@@ -80,11 +80,11 @@ class NamesFragment : Fragment() {
     }
 
     private fun showLoading() {
-        with(binding) {
-            personsList.visibility = View.GONE
-            placeholderMessage.visibility = View.GONE
-            progressBar.visibility = View.VISIBLE
-        }
+
+        binding.personsList.visibility = View.GONE
+        binding.placeholderMessage.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
+
     }
 
     private fun showError(errorMessage: String) {

@@ -56,6 +56,7 @@ class TrailerFragment: Fragment() {
 
     private fun render(state: TrailerState) {
         when (state) {
+            is TrailerState.Loading -> TODO()
             is TrailerState.Content -> showTrailer(state.trailer.linkEmbed)
             is TrailerState.Error -> showError(state.message)
         }
