@@ -12,19 +12,24 @@ import ru.yandex.practicum.moviessearch.data.dto.TrailerResponse
 
 interface IMDbApiService {
 
+    //Теперь наши функции для запроса в сеть с модификатором suspend
+    //, что означает что они могут быть вызваны только из CoroutineScope.
+    //Возвращают теперь они не Call<>, а сам объект класса реализующий interface Response.
+
+
     @GET("/en/API/SearchMovie/k_zcuw1ytf/{expression}")
-    fun searchMovies(@Path("expression") expression: String): Call<MoviesSearchResponse>
+    suspend fun searchMovies(@Path("expression") expression: String): MoviesSearchResponse
 
     @GET("/en/API/Title/k_zcuw1ytf/{movie_id}")
-    fun getMovieDetails(@Path("movie_id") movieId: String): Call<MovieDetailsResponse>
+    suspend fun getMovieDetails(@Path("movie_id") movieId: String): MovieDetailsResponse
 
     @GET("/en/API/FullCast/k_zcuw1ytf/{movie_id}")
-    fun getFullCast(@Path("movie_id") movieId: String): Call<MovieCastResponse>
+    suspend fun getFullCast(@Path("movie_id") movieId: String): MovieCastResponse
 
     @GET("en/API/SearchName/k_zcuw1ytf/{expression}")
-    fun searchName(@Path("expression") expression: String): Call<NameSearchResponse>
+    suspend fun searchName(@Path("expression") expression: String): NameSearchResponse
 
     @GET("en/API/Trailer/k_zcuw1ytf/{movie_id}")
-    fun getTrailer(@Path("movie_id") movieId: String): Call<TrailerResponse>
+    suspend fun getTrailer(@Path("movie_id") movieId: String): TrailerResponse
 
 }

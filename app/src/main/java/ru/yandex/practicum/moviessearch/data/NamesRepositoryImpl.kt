@@ -1,5 +1,7 @@
 package ru.yandex.practicum.moviessearch.data
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import ru.yandex.practicum.moviessearch.data.dto.NameSearchRequest
 import ru.yandex.practicum.moviessearch.data.dto.NameSearchResponse
 import ru.yandex.practicum.moviessearch.domain.api.NamesRepository
@@ -8,21 +10,21 @@ import ru.yandex.practicum.moviessearch.utils.Resource
 
 class NamesRepositoryImpl(private val networkClient: NetworkClient): NamesRepository {
 
-    override fun searchName(expression: String): Resource<List<Name>> {
+    override fun searchName(expression: String): Flow<Resource<List<Name>>> = flow {
         val response = networkClient.doRequest(NameSearchRequest(expression))
-        return when(response.resultCode) {
+         when(response.resultCode) {
             -1 -> {
-                Resource.Error("Проверьте подключение к интернету")
+                emit(Resource.Error("Проверьте подключение к интернету"))
             }
             200 -> {
                 with(response as NameSearchResponse) {
-                    Resource.Success(results.map {
-                        Name(description = it.description, id = it.id, image = it.image, resultType = it.resultType, title= it.title )
-                    })
+                    emit(Resource.Success(results.map {
+                        Name(it.description, it.id, it.image, it.resultType, it.title )
+                    }))
                 }
             }
             else -> {
-                Resource.Error("Ошибка сервера")
+                emit(Resource.Error("Ошибка сервера"))
             }
         }
     }

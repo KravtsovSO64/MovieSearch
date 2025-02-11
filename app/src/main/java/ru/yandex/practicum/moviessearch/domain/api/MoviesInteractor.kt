@@ -1,17 +1,18 @@
 package ru.yandex.practicum.moviessearch.domain.api
 
-import ru.yandex.practicum.moviessearch.domain.api.MoviesInteractor.MoviesConsumer
+import kotlinx.coroutines.flow.Flow
 import ru.yandex.practicum.moviessearch.domain.models.Movie
 import ru.yandex.practicum.moviessearch.domain.models.MovieCast
 import ru.yandex.practicum.moviessearch.domain.models.MovieDetails
 import ru.yandex.practicum.moviessearch.domain.models.Trailer
 
 interface MoviesInteractor {
-    fun searchMovies(expression: String, consumer: MoviesConsumer)
-    fun getMoviesDetails(movieId: String, consumer: MovieDetailsConsumer)
-    fun getMovieCast(movieId: String, consumer: MovieCastConsumer)
-    fun getTrailer(movieId: String, consumer: TrailerConsumer)
+    fun searchMovies(expression: String): Flow<Pair<List<Movie>?,String?>>
+    fun getMoviesDetails(movieId: String): Flow<Pair<MovieDetails?, String?>>
+    fun getMovieCast(movieId: String): Flow<Pair<MovieCast?, String?>>
+    fun getTrailer(movieId: String): Flow<Pair<Trailer?,String?>>
 
+    /*
     interface MoviesConsumer {
         fun consume(foundMovies: List<Movie>?, errorMessage: String?)
     }
@@ -27,4 +28,6 @@ interface MoviesInteractor {
     interface TrailerConsumer {
         fun consume(trailer: Trailer?, errorMessage: String?)
     }
+
+     */
 }
