@@ -5,14 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.yandex.practicum.moviessearch.R
 import ru.yandex.practicum.moviessearch.domain.api.NamesIteractor
 import ru.yandex.practicum.moviessearch.domain.models.Name
-import ru.yandex.practicum.moviessearch.presentation.movies.MoviesViewModel
-import ru.yandex.practicum.moviessearch.presentation.movies.MoviesViewModel.Companion
 import ru.yandex.practicum.moviessearch.presentation.movies.SingleLiveEvent
 import ru.yandex.practicum.moviessearch.utils.debounce
 

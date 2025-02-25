@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_fon"
+    android:background="@color/primary"
     android:fitsSystemWindows="true"
     tools:context="ru.yandex.practicum.moviessearch.ui.movies.MoviesFragment">
 
@@ -28,10 +28,10 @@
             android:alpha="0.5"
             android:imeOptions="actionDone"
             android:singleLine="true"
-            android:backgroundTint="@color/dark"
+            android:backgroundTint="@color/primary"
             android:textColorHint="#F9FBE7"
             android:textColor="#F9FBE7"
-            android:textCursorDrawable="@color/gray_fon"
+            android:textCursorDrawable="@color/secondary"
             android:drawableLeft="@drawable/ic_search"
             android:drawableRight="@drawable/ic_filter"
             android:hint="Найди своего кумира"

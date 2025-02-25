@@ -57,5 +57,10 @@
         android:id="@+id/trailerFragment"
         android:name="ru.yandex.practicum.moviessearch.ui.trailers.TrailerFragment"
         android:label="TrailerFragment" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="ru.yandex.practicum.moviessearch.ui.history.HistoryFragment"
+        android:label="HistoryFragment"
+        tools:layout="@layout/fragment_history"/>
 
 </navigation>
