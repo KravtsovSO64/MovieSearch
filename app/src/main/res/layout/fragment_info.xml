@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/white"
+    android:background="@color/secondary"
     tools:context="ru.yandex.practicum.moviessearch.ui.info.InfoFragment">
 
     <TextView android:layout_width="wrap_content"
