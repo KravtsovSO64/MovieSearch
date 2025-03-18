@@ -2,6 +2,7 @@ package ru.yandex.practicum.moviessearch.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -12,6 +13,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ru.yandex.practicum.moviessearch.R
 import ru.yandex.practicum.moviessearch.databinding.ActivityRootBinding
 
@@ -19,6 +21,7 @@ import ru.yandex.practicum.moviessearch.databinding.ActivityRootBinding
 class RootActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRootBinding
+    private lateinit var dialog: MaterialAlertDialogBuilder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -45,8 +48,26 @@ class RootActivity : AppCompatActivity() {
                 }
             }
         }
+
+        dialog = MaterialAlertDialogBuilder(this)
+            .setTitle("Вы действительно хотите выйти из приложения?")
+            .setNegativeButton("Нет") {dialog, which ->
+
+            }
+            .setPositiveButton("Да") {dialog, which ->
+                finish()
+            }
+
+        onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true
+        ) {
+            override fun handleOnBackPressed() {
+                dialog.show()
+            }
+
+        })
     }
     fun animateBottomNavigationView() {
         binding.bottomNavigationView.visibility = View.GONE
     }
+
 }
